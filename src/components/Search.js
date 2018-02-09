@@ -1,27 +1,64 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import SearchBar from './SearchBar'
+import BooksGrid from './BooksGrid'
+import * as BooksAPI from '../BooksAPI'
 
 class Search extends Component {
+
+  state = {
+    results: []
+  }
+
+  // Interval that the app should wait before sending a request for the search method on the BooksAPI (in milliseconds)
+  interval = 300
+
+  // Variable used to store the result of setTimeout and then be able to clear it
+  timeout = null
+
+  // Method that is called by the SearchBar Component every time the search input changes.
+  // Receives a string with the query and sets the state of this component according to the response
+  searchBooks(query){
+    // Test if query is not an empty string
+    if(query.trim()){
+      // If the timeout is already set, clear it, so the search is not done multiple times
+      clearTimeout(this.timeout)
+      // Wait for (interval) milliseconds before calling the API
+      this.timeout = setTimeout(() => {
+        // The API returns a promise...
+        BooksAPI.search(query).then((results) => {
+          //Avoid errors if no results are given
+          if(Array.isArray(results)){
+            // Iterate through all books in the result array to see if they are alread on one of the bookshelves
+            // using the getShelf method defined on the Search Component
+            const results_with_shelf = results.map((book) => {
+              book.shelf = this.props.getShelf(book.id)
+              return book
+            })
+            //Set the state with the result of the query
+            this.setState({
+              results : results_with_shelf
+            })
+          } else {
+            // Set the results to an empty array
+            this.setState({
+              results: []
+            })
+          }
+        })
+
+      }, this.interval)
+    }
+  }
+
   render() {
     return(
       <div className="search-books">
-        <div className="search-books-bar">
-          <Link className="close-search" to="/">Close</Link>
-          <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input type="text" placeholder="Search by title or author"/>
-
-          </div>
-        </div>
+        <SearchBar handleSearch={(query) => this.searchBooks(query)} />
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <BooksGrid
+            books={this.state.results}
+            moveBookHandler={this.props.moveBookHandler}
+          />
         </div>
       </div>
     )
