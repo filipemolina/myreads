@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 
+// Imports from Material-UI
+import AppBar from 'material-ui/AppBar'
+
 class ListBooksTitle extends Component {
   render() {
     return (
-      <div className="list-books-title">
-        <h1>My Reads</h1>
-      </div>
+      <AppBar
+        title="My Reads"
+        onLeftIconButtonClick={() => console.log("Clicou em Abrir Menu")}
+      />
     )
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import BookList from './components/BookList'
 import Search from './components/Search'
 import * as BooksAPI from './BooksAPI'
@@ -49,26 +50,28 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="app">
+      <MuiThemeProvider>
+        <div className="app">
 
-        {/********** Book Shelves Route **********/}
-        <Route exact path="/" render={() => (
-          <BookList
-            books={this.state.books}
-            moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
-          />
-        )} />
+          {/********** Book Shelves Route **********/}
+          <Route exact path="/" render={() => (
+            <BookList
+              books={this.state.books}
+              moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
+            />
+          )} />
 
-        {/********** Search Route **********/}
-        <Route path="/search" render={() => (
-          <Search
-            collection={this.state.books}
-            getShelf={(book_id) => this.getShelf(book_id)}
-            moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
-          />
-        )}/>
+          {/********** Search Route **********/}
+          <Route path="/search" render={() => (
+            <Search
+              collection={this.state.books}
+              getShelf={(book_id) => this.getShelf(book_id)}
+              moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
+            />
+          )}/>
 
-      </div>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }

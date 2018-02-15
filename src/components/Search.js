@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ListBooksTitle from './ListBooksTitle'
 import SearchBar from './SearchBar'
 import BooksGrid from './BooksGrid'
 import * as BooksAPI from '../BooksAPI'
@@ -53,6 +54,7 @@ class Search extends Component {
   render() {
     return(
       <div className="search-books">
+        <ListBooksTitle />
         <SearchBar handleSearch={(query) => this.searchBooks(query)} />
         <div className="search-books-results">
           <BooksGrid

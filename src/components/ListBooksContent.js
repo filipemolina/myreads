@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import BookShelf from './BookShelf'
+import Spinner from './Spinner'
+
+// Imports from Material UI
+import { Tabs, Tab } from 'material-ui/Tabs'
 
 class ListBooksContent extends Component {
   render() {
@@ -14,9 +18,21 @@ class ListBooksContent extends Component {
     return(
       <div className="list-books-content">
         <div>
-          <BookShelf shelf="currentlyReading" books={booksCurrentlyReading} moveBookHandler={this.props.moveBookHandler}/>
-          <BookShelf shelf="wantToRead" books={booksWantToRead} moveBookHandler={this.props.moveBookHandler}/>
-          <BookShelf shelf="read" books={booksRead} moveBookHandler={this.props.moveBookHandler}/>
+          <Tabs>
+            <Tab label="Currently Reading">
+                {/* If there are no books, show the Spinner Component */}
+                {books.length === 0 && (
+                  <Spinner width="30vh" height="30vh" top="30vh" left="50%" marginLeft="-15vh"/>
+                )}
+                <BookShelf shelf="currentlyReading" books={booksCurrentlyReading} moveBookHandler={this.props.moveBookHandler}/>
+            </Tab>
+            <Tab label="Want To Read">
+                <BookShelf shelf="wantToRead" books={booksWantToRead} moveBookHandler={this.props.moveBookHandler}/>
+            </Tab>
+            <Tab label="Read">
+                <BookShelf shelf="read" books={booksRead} moveBookHandler={this.props.moveBookHandler}/>
+            </Tab>
+          </Tabs>
         </div>
       </div>
     )
