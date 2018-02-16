@@ -10,15 +10,16 @@ class Search extends Component {
     results: []
   }
 
-  // Interval that the app should wait before sending a request for the search method on the BooksAPI (in milliseconds)
-  interval = 300
-
-  // Variable used to store the result of setTimeout and then be able to clear it
-  timeout = null
-
   // Method that is called by the SearchBar Component every time the search input changes.
   // Receives a string with the query and sets the state of this component according to the response
   searchBooks(query){
+
+    // Interval that the app should wait before sending a request for the search method on the BooksAPI (in milliseconds)
+    const interval = 300
+
+    // Variable used to store the result of setTimeout and then be able to clear it
+    const timeout = null
+
     // Test if query is not an empty string
     if(query.trim()){
       // If the timeout is already set, clear it, so the search is not done multiple times
@@ -54,7 +55,7 @@ class Search extends Component {
   render() {
     return(
       <div className="search-books">
-        <ListBooksTitle />
+        <ListBooksTitle showBackButton={true}/>
         <SearchBar handleSearch={(query) => this.searchBooks(query)} />
         <div className="search-books-results">
           <BooksGrid

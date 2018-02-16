@@ -8,8 +8,26 @@ import { Card, CardText, CardMedia } from 'material-ui/Card'
 
 class Book extends Component {
 
+  _isMounted = false
+
+  // Usually, setting initial state with props is not recommended, but in this case, this component doesn't care if the
+  // shelf property of the book would change elsewhere, there is no other way to change it, just through the BookShelfChanger component
+  // that will call the changeShelf method of this class. This is needed because when a user changes the shelf of a book in the search page
+  // the search is not fired again, so the book keep showing the old shelf selected on the menu. More on that:
+  // https://medium.com/@justintulk/react-anti-patterns-props-in-initial-state-28687846cc2e
   state = {
-    isLoading : false
+    isLoading : false,
+    shelf: this.props.book.shelf
+  }
+
+  // Indicate whether the component is currently mounted, according to React blog article:
+  // https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
+  componentDidMount(){
+    this._isMounted = true
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false
   }
 
   // The BookShelfChanger Component calls this method with the new shelf the current book must be placed on,
@@ -17,16 +35,21 @@ class Book extends Component {
   // is kept concise between all pages of the App
   changeShelf = (shelf) => {
     // Show the Spinner Component
-    this.setState({isLoading: true})
+    this.setState({isLoading: true, shelf})
     // Move the book
-    this.props.moveBookHandler(this.props.book, shelf)
+    this.props.moveBookHandler(this.props.book, shelf).then(() => {
+      if(this._isMounted){
+        this.setState({isLoading: false})
+      } else {
+      }
+    })
   }
 
   // This is a curried function that will be used to create 2 differente functions
   shortenText = (length) => {
     return function(title){
       if(title.length > length){
-        return title.substr(0, length)+"..."
+        return title.substr(0, length) + "..."
       } else {
         return title
       }
@@ -80,7 +103,7 @@ class Book extends Component {
         {/* Title and Menu */}
         <CardText className="padding-8 font-12">
           <span className="bold">{this.shortenTitle(book.title)}</span>
-          <BookShelfChanger shelf={book.shelf} onMoveBook={this.changeShelf} book={book}/>
+          <BookShelfChanger shelf={this.state.shelf} onMoveBook={this.changeShelf} book={book}/>
         </CardText>
 
         {/* Authors */}

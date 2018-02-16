@@ -5,11 +5,26 @@ import OpenSearchButton from './OpenSearchButton'
 
 class BookList extends Component {
 
+  state = {
+    isSearching : false,
+    query : ""
+  }
+
+  toggleSearch = () => {
+    this.setState((prevState) => ({
+      isSearching : !prevState.isSearching
+    }));
+  }
+
   render() {
     return (
       <div className="list-books">
-        <ListBooksTitle />
-        <ListBooksContent books={this.props.books} moveBookHandler={this.props.moveBookHandler}/>
+        <ListBooksTitle clickHandler={this.toggleSearch}/>
+        <ListBooksContent
+          books={this.props.books}
+          moveBookHandler={this.props.moveBookHandler}
+          isSearching={this.state.isSearching}
+        />
         <OpenSearchButton />
       </div>
     )

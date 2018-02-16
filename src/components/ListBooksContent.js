@@ -20,11 +20,24 @@ class ListBooksContent extends Component {
         <div>
           <Tabs>
             <Tab label="Currently Reading">
+                {/* Show the input for filtering the list of books */}
+                {this.props.isSearching && (
+                  <div className="filter-books">
+                      <input type="text" placeholder="Filter by title or author"/>
+                  </div>
+
+                )}
+
                 {/* If there are no books, show the Spinner Component */}
                 {books.length === 0 && (
                   <Spinner width="30vh" height="30vh" top="30vh" left="50%" marginLeft="-15vh"/>
                 )}
-                <BookShelf shelf="currentlyReading" books={booksCurrentlyReading} moveBookHandler={this.props.moveBookHandler}/>
+
+                <BookShelf
+                  shelf="currentlyReading"
+                  books={booksCurrentlyReading}
+                  moveBookHandler={this.props.moveBookHandler}
+                />
             </Tab>
             <Tab label="Want To Read">
                 <BookShelf shelf="wantToRead" books={booksWantToRead} moveBookHandler={this.props.moveBookHandler}/>

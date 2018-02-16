@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+
+// Imports from Material UI
+import IconButton from 'material-ui/IconButton'
+import ActionSearch from 'material-ui/svg-icons/action/search'
 
 class SearchBar extends Component {
   render () {
     return (
       <div className="search-books-bar">
-        <Link className="close-search" to="/">Close</Link>
+        <IconButton><ActionSearch /></IconButton>
         <div className="search-books-input-wrapper">
           {/*
             NOTES: The search from BooksAPI is limited to a particular set of search terms.

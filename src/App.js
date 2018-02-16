@@ -20,19 +20,31 @@ class App extends React.Component {
 
   // Method that retrieves all the books from the API and then sets the state of the App
   getAllBooks() {
-    // Make an API call to get all books currently in my shelves and set the state when the response is ready
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+    return new Promise((resolve, reject) => {
+      // Make an API call to get all books currently in my shelves and set the state when the response is ready
+      BooksAPI.getAll().then((books) => {
+        this.setState({ books })
+        resolve()
+      }).catch((err) => {
+        reject(err)
+      })
     })
   }
 
   // Method to handle the transference of books between shelves
   moveBook(book, shelf) {
-    // Make and API call to the BooksAPI to change the shelf of this particular book
-    BooksAPI.update(book, shelf).then((result) => {
-      // Retrieve the updated information
-      this.getAllBooks()
-      //TODO: Update the books on the correct shelves based on the response of this API call, and not calling the API again
+    return new Promise((resolve, reject) => {
+      // Make and API call to the BooksAPI to change the shelf of this particular book
+      BooksAPI.update(book, shelf).then((result) => {
+        // Retrieve the updated information
+        this.getAllBooks().then(() => {
+          resolve()
+        }).catch((err) => {
+          reject(err)
+        })
+      }).catch((err) => {
+        reject(err)
+      })
     })
   }
 

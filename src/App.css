@@ -65,10 +65,10 @@ body, .app {
 /* search page */
 
 .search-books-bar {
-  position: fixed;
+  position: relative;
   width: 100%;
-  top: 60px;
-  left: 0;
+  /*top: 0;
+  left: 0;*/
   z-index: 5;
   display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
@@ -235,4 +235,20 @@ body, .app {
   height: 233px;
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
+}
+
+.filter-books {
+  width: 100%;
+  position: relative;
+  display: flex;
+  -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+}
+
+.filter-books input {
+  width: 100%;
+  padding: 15px 10px;
+  font-size: 1.25em;
+  border: none;
+  outline: none;
 }
