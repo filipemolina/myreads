@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import BookShelf from './BookShelf'
-import Spinner from './Spinner'
+import BookTab from './BookTab'
 
 // Imports from Material UI
 import { Tabs, Tab } from 'material-ui/Tabs'
@@ -20,30 +19,28 @@ class ListBooksContent extends Component {
         <div>
           <Tabs>
             <Tab label="Currently Reading">
-                {/* Show the input for filtering the list of books */}
-                {this.props.isSearching && (
-                  <div className="filter-books">
-                      <input type="text" placeholder="Filter by title or author"/>
-                  </div>
-
-                )}
-
-                {/* If there are no books, show the Spinner Component */}
-                {books.length === 0 && (
-                  <Spinner width="30vh" height="30vh" top="30vh" left="50%" marginLeft="-15vh"/>
-                )}
-
-                <BookShelf
-                  shelf="currentlyReading"
-                  books={booksCurrentlyReading}
-                  moveBookHandler={this.props.moveBookHandler}
-                />
+              <BookTab
+                shelf="currentlyReading"
+                isSearching={this.props.isSearching}
+                books={booksCurrentlyReading}
+                moveBookHandler={this.props.moveBookHandler}
+              />
             </Tab>
             <Tab label="Want To Read">
-                <BookShelf shelf="wantToRead" books={booksWantToRead} moveBookHandler={this.props.moveBookHandler}/>
+              <BookTab
+                shelf="wantToRead"
+                isSearching={this.props.isSearching}
+                books={booksWantToRead}
+                moveBookHandler={this.props.moveBookHandler}
+              />
             </Tab>
             <Tab label="Read">
-                <BookShelf shelf="read" books={booksRead} moveBookHandler={this.props.moveBookHandler}/>
+              <BookTab
+                shelf="Read"
+                isSearching={this.props.isSearching}
+                books={booksRead}
+                moveBookHandler={this.props.moveBookHandler}
+              />
             </Tab>
           </Tabs>
         </div>

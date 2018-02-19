@@ -7,7 +7,6 @@ class BookList extends Component {
 
   state = {
     isSearching : false,
-    query : ""
   }
 
   toggleSearch = () => {
@@ -19,7 +18,7 @@ class BookList extends Component {
   render() {
     return (
       <div className="list-books">
-        <ListBooksTitle clickHandler={this.toggleSearch}/>
+        <ListBooksTitle clickHandler={this.toggleSearch} isSearching={this.state.isSearching}/>
         <ListBooksContent
           books={this.props.books}
           moveBookHandler={this.props.moveBookHandler}

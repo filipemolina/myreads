@@ -5,11 +5,13 @@ import { withRouter } from 'react-router-dom'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import ContentFilter from 'material-ui/svg-icons/content/filter-list'
 
 class ListBooksTitle extends Component {
   render() {
     const showBackButton = this.props.showBackButton
+    const { isSearching } = this.props
 
     return (
       <div>
@@ -22,7 +24,7 @@ class ListBooksTitle extends Component {
         ) : (
           <AppBar
             title="My Reads"
-            iconElementRight={<IconButton><ContentFilter /></IconButton>}
+            iconElementRight={isSearching ? <IconButton><NavigationClose /></IconButton> : <IconButton><ContentFilter /></IconButton>}
             onLeftIconButtonClick={() => console.log("Clicou em Abrir Menu")}
             onRightIconButtonClick={this.props.clickHandler}
           />

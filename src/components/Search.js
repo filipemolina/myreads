@@ -16,16 +16,15 @@ class Search extends Component {
 
     // Interval that the app should wait before sending a request for the search method on the BooksAPI (in milliseconds)
     const interval = 300
-
     // Variable used to store the result of setTimeout and then be able to clear it
-    const timeout = null
+    let timeout = null
 
     // Test if query is not an empty string
     if(query.trim()){
       // If the timeout is already set, clear it, so the search is not done multiple times
-      clearTimeout(this.timeout)
+      clearTimeout(timeout)
       // Wait for (interval) milliseconds before calling the API
-      this.timeout = setTimeout(() => {
+      timeout = setTimeout(() => {
         // The API returns a promise...
         BooksAPI.search(query).then((results) => {
           //Avoid errors if no results are given
@@ -48,7 +47,7 @@ class Search extends Component {
           }
         })
 
-      }, this.interval)
+      }, interval)
     }
   }
 
