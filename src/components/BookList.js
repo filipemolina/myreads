@@ -18,7 +18,12 @@ class BookList extends Component {
   render() {
     return (
       <div className="list-books">
-        <ListBooksTitle clickHandler={this.toggleSearch} isSearching={this.state.isSearching}/>
+        <ListBooksTitle 
+          clickHandler={this.toggleSearch} 
+          isSearching={this.state.isSearching}
+          showBackButton={false}
+          openMenuHandler={this.props.openMenuHandler}
+        />
         <ListBooksContent
           books={this.props.books}
           moveBookHandler={this.props.moveBookHandler}

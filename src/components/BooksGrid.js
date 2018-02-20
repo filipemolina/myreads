@@ -13,7 +13,10 @@ class BooksGrid extends Component {
         {/* Test if the books variable is set and is an array. If so, map through it to show each book as a list item with a Book Component inside */}
         {Array.isArray(books) && books.map((book) => (
           <li key={book.id}>
-            <Book book={book} moveBookHandler={this.props.moveBookHandler}/>
+            <Book 
+              book={book} 
+              moveBookHandler={this.props.moveBookHandler}
+            />
           </li>
         ))}
 

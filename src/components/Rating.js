@@ -1,20 +1,18 @@
 import React, { Component } from 'react'
+import './Rating.css'
 
 class Rating extends Component {
 
-  render() {
-    // Obtain the rating
-    const rating = this.props.stars
-
+  // Method that receives the rating of a book and returns an array with 5 positions, each containing
+  // the class that should be respectively applied to the star-rating portion of the book
+  calculateRating(stars) {
+    
     // Array that will store the classes of the five stars
     let totalStars = []
-
     // Number of full stars (rating rounded down)
-    const fullStars = Math.floor(rating)
-
+    const fullStars = Math.floor(stars)
     // If the rating is bigger than itself rounded down, then there is a half star
-    const halfStar = rating > fullStars ? 1 : 0
-
+    const halfStar = stars > fullStars ? 1 : 0
     // Calculate the number of blank stars
     const blankStars = 5 - fullStars - halfStar
 
@@ -31,8 +29,20 @@ class Rating extends Component {
     for(let j=0; j<blankStars; j++){
         totalStars.push('')
     }
+
+    return totalStars
+  }
+
+  render() {
+
+    const { book } = this.props
+
+    // Obtain the ratings
+    const stars = book.averageRating ? book.averageRating : 0
+    const totalStars = this.calculateRating(stars)
+
     return (
-      <div>
+      <div className="rating">
         <span className={`star-icon ${totalStars[0]}`}>☆</span>
         <span className={`star-icon ${totalStars[1]}`}>☆</span>
         <span className={`star-icon ${totalStars[2]}`}>☆</span>

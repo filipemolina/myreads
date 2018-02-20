@@ -2,19 +2,23 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import BookList from './components/BookList'
 import Search from './components/Search'
+import BookDetails from './components/BookDetails'
+import SideMenu from './components/SideMenu'
+
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 // Material UI Imports
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { purple500, purple700, grey500, yellow600 } from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import { purple500, purple700, grey500, yellow600 } from 'material-ui/styles/colors'
 
 class App extends React.Component {
 
   // Inicial state of the App
   state = {
-    books : []
+    books : [],
+    menuIsOpen: false,
   }
 
   // Customizing the theme using getMuiTheme
@@ -23,14 +27,13 @@ class App extends React.Component {
       primary1Color: purple500,
       primary2Color: purple700,
       primary3Color: grey500,
-      accent1Color: yellow600, //'#E3D61C'
+      accent1Color: yellow600,
     }
   })
 
   // Lifecycle Event that fires when the component is rendered on the page
   componentDidMount() {
     this.getAllBooks();
-    console.log("Tema", this.newTheme)
   }
 
   // Method that retrieves all the books from the API and then sets the state of the App.
@@ -80,16 +83,31 @@ class App extends React.Component {
       return "none"
   }
 
+  handleClose(){
+    this.setState({
+      menuIsOpen: false
+    })
+  }
+
+  openMenu(){
+    this.setState({
+      menuIsOpen: true
+    })
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={this.newTheme}>
         <div className="app">
+
+          <SideMenu open={this.state.menuIsOpen} handleClose={() => this.handleClose()} />
 
           {/********** Book Shelves Route **********/}
           <Route exact path="/" render={() => (
             <BookList
               books={this.state.books}
               moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
+              openMenuHandler={() => this.openMenu()}
             />
           )} />
 
@@ -101,6 +119,14 @@ class App extends React.Component {
               moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
             />
           )}/>
+
+          {/********** Book Details Route **********/}
+          <Route path="/book/:bookId" render={({match}) => (
+            <BookDetails
+              openMenuHandler={() => this.openMenu()}
+              match={match}
+            />
+          )} />
 
         </div>
       </MuiThemeProvider>

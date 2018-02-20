@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BookShelfChanger from './BookShelfChanger'
 import Rating from './Rating'
 import Spinner from './Spinner'
+import { Link } from 'react-router-dom'
 
 // Material UI Imports
 import { Card, CardText, CardMedia } from 'material-ui/Card'
@@ -97,7 +98,9 @@ class Book extends Component {
               <Spinner width="40%" height="40%" top="70px" left="50px" marginLeft="none"/>
             </div>
           )}
-          <img src={cover} alt={book.title} className="book-cover-img"/>
+          <Link to={`/book/${book.id}`}>
+            <img src={cover} alt={book.title} className="book-cover-img"/>
+          </Link>
         </CardMedia>
 
         {/* Title and Menu */}
@@ -114,7 +117,7 @@ class Book extends Component {
         {/* Rating */}
         <CardText className="padding-0 star-rating">
           {/* If this book has an averageRating property, pass it to the Rating component. Otherwise pass 0 */}
-          <Rating stars={ book.averageRating ? book.averageRating : 0 } />
+          <Rating book={ book } />
         </CardText>
       </Card>
     )

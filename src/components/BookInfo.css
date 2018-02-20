@@ -1,0 +1,61 @@
+.card-details {
+	width: 70vh;
+	margin-bottom: 10vh;
+}
+
+.card-details .description {
+	font-weight: bold;
+}
+
+.card-details .description-box {
+	overflow: hidden;
+	transition: all 0.2s ease-in;
+}
+
+.retracted{
+	height: 20vh;
+}
+
+.expanded{
+	height: auto;
+}
+
+.book-info-container{
+	display: flex;
+	justify-content: center;
+	padding: 5vh 0 0 0;
+}
+
+.bg-book {
+	max-height: 40vh;
+	overflow: hidden;
+}
+
+.bg-book .bg-cover {
+	filter: blur(10px);
+}
+
+.bg-book .main-cover {
+	position: absolute;
+  top: 4vh;
+  left: 5vh;
+  width: 160px !important;
+  min-width: auto !important;
+  height: 223px;
+}
+
+.centralize{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
+}
+
+.centralize div{
+	margin-left: 20px
+}
+
+.align-right{
+	display: flex;
+	justify-content: flex-end;
+}

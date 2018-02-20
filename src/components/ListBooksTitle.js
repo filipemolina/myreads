@@ -25,7 +25,7 @@ class ListBooksTitle extends Component {
           <AppBar
             title="My Reads"
             iconElementRight={isSearching ? <IconButton><NavigationClose /></IconButton> : <IconButton><ContentFilter /></IconButton>}
-            onLeftIconButtonClick={() => console.log("Clicou em Abrir Menu")}
+            onLeftIconButtonClick={() => this.props.openMenuHandler()}
             onRightIconButtonClick={this.props.clickHandler}
           />
         )}
