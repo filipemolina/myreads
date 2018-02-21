@@ -42,7 +42,7 @@ class BookTab extends Component {
               <input
                 onChange={(e) => this.handleChange(e.target.value)}
                 type="text"
-                placeholder="Filter by title or author"
+                placeholder="Filter by title"
               />
           </div>
         )}
