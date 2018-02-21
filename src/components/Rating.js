@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './Rating.css'
 
+/**
+* The CSS for this component is havily inspired by this article on css-tricks.com
+* https://css-tricks.com/star-ratings/
+*/
+
 class Rating extends Component {
 
   // Method that receives the rating of a book and returns an array with 5 positions, each containing
