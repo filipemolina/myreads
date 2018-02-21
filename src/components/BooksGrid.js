@@ -1,28 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
-class BooksGrid extends Component {
-  render() {
+export const BooksGrid = (props) => {
+  // Receive the books from props
+  const { books } = props
 
-    // Receive the books from props
-    const { books } = this.props
+  return (
+    <ol className="books-grid">
 
-    return (
-      <ol className="books-grid">
+      {/* Test if the books variable is set and is an array. If so, map through it to show each book as a list item with a Book Component inside */}
+      {Array.isArray(books) && books.map((book) => (
+        <li key={book.id}>
+          <Book 
+            book={book} 
+            moveBookHandler={props.moveBookHandler}
+          />
+        </li>
+      ))}
 
-        {/* Test if the books variable is set and is an array. If so, map through it to show each book as a list item with a Book Component inside */}
-        {Array.isArray(books) && books.map((book) => (
-          <li key={book.id}>
-            <Book 
-              book={book} 
-              moveBookHandler={this.props.moveBookHandler}
-            />
-          </li>
-        ))}
-
-      </ol>
-    )
-  }
+    </ol>
+  )
 }
 
-export default BooksGrid
+// Specifying the PropTypes for this Component
+BooksGrid.propTypes = {
+  books: PropTypes.array,
+  moveBookHandler: PropTypes.func,
+}

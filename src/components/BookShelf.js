@@ -1,24 +1,27 @@
-import React, { Component } from 'react'
-import BooksGrid from './BooksGrid'
+import React from 'react'
+import { BooksGrid } from './BooksGrid'
+import PropTypes from 'prop-types'
 
-class BookShelf extends Component {
+export const BookShelf = (props) => {
 
-  render() {
+  const { shelf } = props
 
-    const { shelf } = this.props
-
-    return (
-      <div className="bookshelf">
-        <div className="bookshelf-books">
-          <BooksGrid 
-            shelf={shelf} 
-            books={this.props.books} 
-            moveBookHandler={this.props.moveBookHandler}
-          />
-        </div>
+  return (
+    <div className="bookshelf">
+      <div className="bookshelf-books">
+        <BooksGrid 
+          shelf={shelf} 
+          books={props.books} 
+          moveBookHandler={props.moveBookHandler}
+        />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default BookShelf
+// Specifying the PropTypes for this Component
+BookShelf.propTypes = {
+  shelf: PropTypes.string,
+  books: PropTypes.array,
+  moveBookHandler: PropTypes.func
+}

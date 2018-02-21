@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './Rating.css'
 
 class Rating extends Component {
@@ -51,6 +52,11 @@ class Rating extends Component {
       </div>
     )
   }
+}
+
+// Specifying the PropTypes for this Component
+Rating.propTypes = {
+  book: PropTypes.object
 }
 
 export default Rating

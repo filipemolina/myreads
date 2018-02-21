@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import BookShelf from './BookShelf'
-import Spinner from './Spinner'
 import escapeRegExp from 'escape-string-regexp'
+import React, { Component } from 'react'
+import { BookShelf } from './BookShelf'
+import PropTypes from 'prop-types'
+import Spinner from './Spinner'
 import sortBy from 'sort-by'
 
 class BookTab extends Component {
@@ -48,7 +49,9 @@ class BookTab extends Component {
 
         {/* If there are no books, show the Spinner Component */}
         {books.length === 0 && (
-          <Spinner width="30vh" height="30vh" top="30vh" left="50%" marginLeft="-15vh"/>
+          <div style={{ height: "400px"}}>
+            <Spinner width="20vh" height="20vh"/>
+          </div>
         )}
 
         <BookShelf
@@ -59,6 +62,14 @@ class BookTab extends Component {
       </div>
     )
   }
+}
+
+// Specifying the PropTypes for this Component
+BookTab.propTypes = {
+  books: PropTypes.array,
+  shelf: PropTypes.string,
+  isSearching: PropTypes.bool,
+  moveBookHandler: PropTypes.func
 }
 
 export default BookTab

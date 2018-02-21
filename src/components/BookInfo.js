@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import Spinner from './Spinner'
+import Rating from './Rating'
+import PropTypes from 'prop-types'
+
 import * as BooksAPI from '../BooksAPI'
 import "./BookInfo.css"
 
@@ -73,7 +76,10 @@ class BookInfo extends Component {
 						<CardHeader title={book.title} subtitle={`Authors: ${authors}`}/>
 						<CardMedia className="bg-book">
 							<img src={cover} className="bg-cover" alt="Book background"/>
-							<img src={cover} className="main-cover" alt="Book Cover"/>
+							<div className="book-assets">
+								<img src={cover} className="main-cover" alt="Book Cover"/>
+								<Rating book={book} />
+							</div>
 						</CardMedia>
 						<CardText className={`description-box ${this.state.isExpanded ? "expanded" : "retracted"}`}>
 							<p className="description">Description:</p>
@@ -96,6 +102,11 @@ class BookInfo extends Component {
 			</div>
 		)
 	}
+}
+
+// Specifying the PropTypes for this Component
+BookInfo.propTypes = {
+	bookId: PropTypes.string
 }
 
 export default BookInfo

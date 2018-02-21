@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
 import BookShelfChanger from './BookShelfChanger'
-import Rating from './Rating'
-import Spinner from './Spinner'
+import BookCoverPicture from '../img/bg.jpg'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import Spinner from './Spinner'
+import Rating from './Rating'
 
 // Material UI Imports
 import { Card, CardText, CardMedia } from 'material-ui/Card'
+import ActionPageView from 'material-ui/svg-icons/action/pageview'
 
 class Book extends Component {
 
@@ -35,7 +38,8 @@ class Book extends Component {
   // then, the moveBookHandler from the App Component is called to actually move the book. This way the state
   // is kept concise between all pages of the App
   changeShelf = (shelf) => {
-    // Show the Spinner Component
+    // Show the Spinner Component and change the shelf property in the state, so the book shows the new shelf
+    // instead of the old one without the need to reinvoke the API and make a new search
     this.setState({isLoading: true, shelf})
     // Move the book
     this.props.moveBookHandler(this.props.book, shelf).then(() => {
@@ -85,7 +89,7 @@ class Book extends Component {
         cover = book.imageLinks.smallThumbnail
       }
     } else {
-      cover = "icons/bookCover.jpg"
+      cover = BookCoverPicture
     }
 
     return(
@@ -95,10 +99,11 @@ class Book extends Component {
           {/* Control when the Spinner Component is shown */}
           {this.state.isLoading && (
             <div className="overlay">
-              <Spinner width="40%" height="40%" top="70px" left="50px" marginLeft="none"/>
+              <Spinner width="100px" height="100px" />
             </div>
           )}
           <Link to={`/book/${book.id}`}>
+            <div className="page-view-icon"><ActionPageView color="#fff" style={{ width: "96px", height: "96px" }}/></div>
             <img src={cover} alt={book.title} className="book-cover-img"/>
           </Link>
         </CardMedia>
@@ -122,6 +127,11 @@ class Book extends Component {
       </Card>
     )
   }
+}
+
+// Specifying the PropTypes for this Component
+Book.propTypes = {
+  book: PropTypes.object,
 }
 
 export default Book

@@ -1,12 +1,13 @@
+import { withRouter } from 'react-router-dom'
 import React, { Component } from 'react'
 import UserProfile from './UserProfile'
-import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 // Imports from Material UI
-import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
-import ActionBook from 'material-ui/svg-icons/action/book'
 import ActionSearch from 'material-ui/svg-icons/action/search'
+import ActionBook from 'material-ui/svg-icons/action/book'
+import MenuItem from 'material-ui/MenuItem'
+import Drawer from 'material-ui/Drawer'
 
 class SideMenu extends Component {
 
@@ -31,6 +32,12 @@ class SideMenu extends Component {
 			</Drawer>
 		)
 	}
+}
+
+// Specifying the PropTypes for this Component
+SideMenu.propTypes = {
+	handleClose: PropTypes.func,
+	open: PropTypes.bool,
 }
 
 // Use the HOC withRouter from react-router-dom to get access to the navigation and history methods

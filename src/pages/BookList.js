@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import ListBooksTitle from './ListBooksTitle'
-import ListBooksContent from './ListBooksContent'
-import OpenSearchButton from './OpenSearchButton'
+import ListBooksTitle from '../components/ListBooksTitle'
+import { ListBooksContent } from '../components/ListBooksContent'
+import OpenSearchButton from '../components/OpenSearchButton'
+import PropTypes from 'prop-types'
 
 class BookList extends Component {
 
@@ -21,7 +22,7 @@ class BookList extends Component {
         <ListBooksTitle 
           clickHandler={this.toggleSearch} 
           isSearching={this.state.isSearching}
-          showBackButton={false}
+          showFilterButton={true}
           openMenuHandler={this.props.openMenuHandler}
         />
         <ListBooksContent
@@ -34,6 +35,13 @@ class BookList extends Component {
     )
   }
 
+}
+
+// Specifying the PropTypes for this Component
+BookList.propTypes = {
+  books: PropTypes.array,
+  openMenuHandler: PropTypes.func,
+  moveBookHandler: PropTypes.func,
 }
 
 export default BookList

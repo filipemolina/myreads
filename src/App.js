@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import BookList from './components/BookList'
-import Search from './components/Search'
-import BookDetails from './components/BookDetails'
+import BookList from './pages/BookList'
+import Search from './pages/Search'
+import { BookDetails } from './pages/BookDetails'
 import SideMenu from './components/SideMenu'
 
 import * as BooksAPI from './BooksAPI'
@@ -114,7 +114,6 @@ class App extends React.Component {
           {/********** Search Route **********/}
           <Route path="/search" render={() => (
             <Search
-              collection={this.state.books}
               getShelf={(book_id) => this.getShelf(book_id)}
               moveBookHandler={(book, shelf) => this.moveBook(book, shelf)}
             />

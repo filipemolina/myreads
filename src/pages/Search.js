@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import ListBooksTitle from './ListBooksTitle'
-import SearchBar from './SearchBar'
-import BooksGrid from './BooksGrid'
+import ListBooksTitle from '../components/ListBooksTitle'
+import { SearchBar } from '../components/SearchBar'
+import { BooksGrid } from '../components/BooksGrid'
+import PropTypes from 'prop-types'
 import * as BooksAPI from '../BooksAPI'
 
 class Search extends Component {
@@ -65,6 +66,12 @@ class Search extends Component {
       </div>
     )
   }
+}
+
+// Specifying the PropTypes for this Component
+Search.propTypes = {
+  getShelf: PropTypes.func,
+  moveBookHandler: PropTypes.func,
 }
 
 export default Search
